@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Scruby Companion — Gameplay Instructions</title>
+  <meta name="description" content="Gameplay instructions for the Scruby Companion mod for Hytale — Quick Start, paths, combat modes, skilling, prestige fight, and admin commands." />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" href="data:," />
+  <style>
+    :root {
+      --bg: #0f1115;
+      --bg-elev: #161922;
+      --bg-callout: #1d1812;
+      --text: #e6e6e6;
+      --text-dim: #a0a4ad;
+      --accent: #f5a623;
+      --accent-soft: #ffb347;
+      --rule: #2a2f3a;
+      --max-width: 720px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-size: 17px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .wrap {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    header.page-header {
+      padding-bottom: 8px;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      line-height: 1.2;
+      margin: 0 0 6px;
+      color: #fff;
+      letter-spacing: -0.01em;
+    }
+
+    .subtitle {
+      color: var(--text-dim);
+      font-size: 1.05rem;
+      margin: 0 0 20px;
+    }
+
+    .callout {
+      background: var(--bg-callout);
+      border-left: 3px solid var(--accent);
+      padding: 14px 18px;
+      margin: 18px 0 0;
+      border-radius: 2px;
+      color: var(--text);
+      font-size: 0.97rem;
+    }
+
+    .callout a {
+      color: var(--accent-soft);
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    .callout a:hover { text-decoration: underline; }
+
+    hr.divider {
+      border: 0;
+      border-top: 1px solid var(--rule);
+      margin: 36px 0 28px;
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      color: var(--accent);
+      margin: 40px 0 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--rule);
+      letter-spacing: 0;
+    }
+
+    h2:first-of-type { margin-top: 0; }
+
+    p { margin: 0 0 14px; }
+
+    ul, ol {
+      margin: 0 0 16px;
+      padding-left: 22px;
+    }
+
+    li { margin-bottom: 6px; }
+
+    code, .cmd {
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+      background: var(--bg-elev);
+      color: var(--accent-soft);
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 0.92em;
+    }
+
+    .closing-note {
+      margin: 18px 0 0;
+      color: var(--text-dim);
+      font-style: italic;
+    }
+
+    footer.page-footer {
+      margin-top: 64px;
+      padding-top: 24px;
+      border-top: 1px solid var(--rule);
+      color: var(--text-dim);
+      font-size: 0.92rem;
+    }
+
+    footer.page-footer ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 12px;
+    }
+
+    footer.page-footer li { margin-bottom: 4px; }
+
+    footer.page-footer a {
+      color: var(--accent-soft);
+      text-decoration: none;
+    }
+
+    footer.page-footer a:hover { text-decoration: underline; }
+
+    .credit {
+      margin: 12px 0 0;
+      font-size: 0.85rem;
+      color: var(--text-dim);
+    }
+
+    @media (max-width: 600px) {
+      html, body { font-size: 16px; }
+      .wrap { padding: 32px 18px 56px; }
+      h1 { font-size: 1.6rem; }
+      h2 { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="page-header">
+      <h1>Scruby Companion — Gameplay Instructions</h1>
+      <p class="subtitle">Advanced MMORPG Companion Mod for Hytale</p>
+      <div class="callout">
+        📺 For screenshots, trailer, and visuals, see the full mod page on CurseForge:
+        <a href="https://www.curseforge.com/hytale/mods/scruby-companion">https://www.curseforge.com/hytale/mods/scruby-companion</a>
+      </div>
+    </header>
+
+    <hr class="divider" />
+
+    <main>
+      <h2>Quick Start</h2>
+      <ol>
+        <li>Install the Scruby Companion mod and the HyUI dependency mod.</li>
+        <li>Enable both in your game settings under Mods.</li>
+        <li>Join your world. Your first Scruby will automatically spawn and start following you.</li>
+        <li>Open the Scruby menu anytime with <code>/scruby-menu</code> or look at him and press <code>F</code>.</li>
+      </ol>
+      <p class="closing-note">That's it — you're ready to play.</p>
+
+      <h2>Useful Commands</h2>
+      <ul>
+        <li><code>/scruby-menu</code> — open the main Scruby UI</li>
+        <li><code>/scruby</code> — list all player commands and settings</li>
+        <li><code>/scruby-admin</code> — server admin commands (op-mode required); use it to instantly level up and more</li>
+      </ul>
+
+      <h2>First Steps (Level 1–5)</h2>
+      <p>Your Scruby starts at level 1 with no class.</p>
+      <ul>
+        <li>Kill mobs together. Scruby earns XP from your kills and his own.</li>
+        <li>First kills on a new NPC type give 2× XP (Discovery System). Explore actively.</li>
+        <li>At level 5, the path selection unlocks. Choose between DPS, Healer, or Tank.</li>
+      </ul>
+
+      <h2>Choosing a Path (Level 5)</h2>
+      <p>Open the Scruby menu and select your path:</p>
+      <ul>
+        <li><strong>DPS</strong> — high damage output, ranged abilities</li>
+        <li><strong>Healer</strong> — keeps you alive with regeneration and healing skills</li>
+        <li><strong>Tank</strong> — soaks up damage, draws aggro, high HP focus</li>
+      </ul>
+      <p>Each path has its own skill set and visual evolution.</p>
+
+      <h2>Combat Modes</h2>
+      <p>Scruby has two combat modes you can switch anytime from the character tab:</p>
+      <ul>
+        <li><strong>Attack Mode</strong> — Scruby attacks every hostile NPC within 20 blocks</li>
+        <li><strong>Guard Mode</strong> — Scruby only attacks the enemies you target</li>
+      </ul>
+
+      <h2>Skilling Your Scruby</h2>
+      <ul>
+        <li>You earn 2 attribute points per level (Vitality, Strength, Zeal)</li>
+        <li>At level 12 and level 18, you choose 1 skill each time</li>
+        <li>Total of 22 skills available across all paths</li>
+      </ul>
+
+      <h2>Equipping Armor</h2>
+      <ul>
+        <li>Open the Scruby menu and go to the Item Transfer tab</li>
+        <li>Drag any native Hytale armor onto Scruby</li>
+        <li>Each piece adds HP and renders visually on Scruby's model</li>
+      </ul>
+
+      <h2>Scruby Inventory and Auto-Loot</h2>
+      <ul>
+        <li>Scruby has a built-in 20-slot inventory</li>
+        <li>He automatically picks up items dropped by NPCs he helped kill</li>
+        <li>Transfer items to and from Scruby via the Item Transfer tab</li>
+      </ul>
+
+      <h2>Base Guarding</h2>
+      <ul>
+        <li>Open the Scruby menu and set Scruby to "stationed" mode at your base location</li>
+        <li>He will defend the area, kill enemies within range, and stockpile loot</li>
+        <li>Return any time to collect what he gathered</li>
+      </ul>
+
+      <h2>Evolution Stages</h2>
+      <p>Scruby visually evolves at:</p>
+      <ul>
+        <li>Level 5 (after path selection)</li>
+        <li>Level 13</li>
+        <li>Level 20 (Prestige evolution)</li>
+      </ul>
+
+      <h2>Endgame: The Prestige Fight</h2>
+      <p>At max level (20), the Prestige Fight unlocks:</p>
+      <ul>
+        <li>Open the Scruby menu and challenge the Prestige boss</li>
+        <li>The boss has 500 HP and deals 1 AOE damage per second</li>
+        <li><strong>Win:</strong> unlock the Legendary Prestige Skin (a status symbol on multiplayer servers)</li>
+        <li><strong>Lose:</strong> no second chance (server admins can grant a retry via <code>/scruby-admin</code>)</li>
+      </ul>
+
+      <h2>Server Admins</h2>
+      <p>Configure XP rates, respawn delays, prestige toggles, and more in:</p>
+      <p><code>Hytale-Dedicated-Server/mods/CompanionMod_ScrubyCompanion/scruby-config.json</code></p>
+    </main>
+
+    <footer class="page-footer">
+      <ul>
+        <li>CurseForge: <a href="https://www.curseforge.com/hytale/mods/scruby-companion">curseforge.com/hytale/mods/scruby-companion</a></li>
+        <li>GitHub: <a href="https://github.com/superdynamix-dev">github.com/superdynamix-dev</a></li>
+        <li>Free Hytale Tools: <a href="https://hyspawns.com">hyspawns.com</a> &amp; <a href="https://hysounds.com">hysounds.com</a></li>
+      </ul>
+      <p class="credit">Built solo by Superdynamix.</p>
+    </footer>
+  </div>
+</body>
+</html>
