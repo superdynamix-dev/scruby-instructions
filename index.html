@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Scruby Companion - Gameplay Instructions</title>
-  <meta name="description" content="Gameplay instructions for the Scruby Companion mod for Hytale - Quick Start, paths, combat modes, skilling, prestige fight, admin commands, and the CompanionConnect mod-developer API." />
+  <meta name="description" content="Gameplay instructions for the Scruby Companion mod for Hytale - Quick Start, paths, combat modes, skilling, prestige fight, and admin commands." />
   <meta name="robots" content="index, follow" />
   <link rel="icon" href="data:," />
   <style>
@@ -121,27 +121,6 @@
       padding: 1px 6px;
       border-radius: 3px;
       font-size: 0.92em;
-    }
-
-    pre.codeblock {
-      background: var(--bg-elev);
-      color: var(--text);
-      padding: 12px 16px;
-      border-radius: 4px;
-      border-left: 3px solid var(--rule);
-      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
-      font-size: 0.9rem;
-      line-height: 1.55;
-      overflow-x: auto;
-      margin: 8px 0 16px;
-    }
-
-    pre.codeblock code {
-      background: transparent;
-      color: inherit;
-      padding: 0;
-      font-size: inherit;
-      border-radius: 0;
     }
 
     .closing-note {
@@ -334,62 +313,9 @@
       <p>Configure XP rates, respawn delays, prestige toggles, and more in:</p>
       <p><code>Hytale-Dedicated-Server/mods/CompanionMod_ScrubyCompanion/scruby-config.json</code></p>
 
-      <hr class="divider" />
-
-      <h2>For Mod Developers (CompanionConnect API)</h2>
-      <p>Other Hytale companion mods can coexist peacefully with Scruby. Scruby's AoE skill targeting (Healer-AoE, DPS-Burst, Tank-Taunt, etc.) automatically skips entities from any plugin that follows the convention below. No registration, no runtime handshake, no plugin dependency required for the basic case.</p>
-
-      <h3>Easiest path - role naming only</h3>
-      <p>Pick any name for your companion's NPC role and include the substring <code>_CompanionConnect</code> somewhere in it. That is the entire requirement.</p>
-      <p>Examples that match:</p>
-      <pre class="codeblock"><code>MyMod_Wolf_CompanionConnect
-Awesome_Pet_CompanionConnect_Aggressive
-SomeMod_Companion_CompanionConnect_Stationed</code></pre>
-      <p>As soon as your plugin is loaded alongside Scruby, Scruby's AoE skills will leave your entities alone. Vanilla Hytale roles do not contain this substring, so there is no risk of false positives on regular mobs.</p>
-
-      <h3>Optional - query Scruby from your code</h3>
-      <p>If you want the inverse (your skills should skip Scrubys in their own targeting), Scruby ships a small read-only static facade. Add Scruby's JAR as a compile-only dependency. Use the latest release from CurseForge.</p>
-      <pre class="codeblock"><code>// build.gradle
-dependencies {
-  compileOnly files('libs/ScrubyCompanion-vX.Y.Z.jar')
-}</code></pre>
-      <p>Then in your skill or targeting code:</p>
-      <pre class="codeblock"><code>import org.example.plugin.ScrubyCompanionAPI;
-
-if (ScrubyCompanionAPI.isScrubyCompanion(store, ref)) {
-    continue; // do not target a Scruby
-}</code></pre>
-      <p><code>compileOnly</code> means the JAR is only used for compilation - it is not bundled into your mod. At runtime the actual Scruby JAR is loaded from the server's <code>mods</code> folder.</p>
-
-      <h3>Available methods</h3>
-      <ul>
-        <li><code>isScrubyCompanion(store, ref)</code> - true if the entity's NPC role name contains <code>Scruby_</code></li>
-        <li><code>isCompanionConnectNpc(store, ref)</code> - true if the role name contains <code>_CompanionConnect</code></li>
-        <li><code>getScrubyOwner(ref)</code> - returns <code>Optional&lt;UUID&gt;</code> of the owning player, for live registered Scruby companions only</li>
-        <li><code>getConventionSuffix()</code> - returns the literal convention string <code>"_CompanionConnect"</code></li>
-      </ul>
-      <p>The facade is read-only and side-effect-free. If Scruby is not on the server, the owner-lookup returns <code>Optional.empty()</code> rather than throwing.</p>
-
-      <h3>What the protocol does NOT do</h3>
-      <ul>
-        <li>It does not modify direct auto-attack damage. That is governed by Hytale's NPC-Role attitude system, configured in role definitions themselves.</li>
-        <li>It does not differentiate between same-owner and different-owner companions in PvP scenarios.</li>
-        <li>It does not publish lifecycle events (spawn, despawn, level-up) for other plugins to subscribe to.</li>
-      </ul>
-      <p>These are deliberate omissions. Extensions are possible if there is real cross-mod demand.</p>
-
-      <h3>Reflection alternative (no JAR dependency)</h3>
-      <p>If your mod must work standalone (without Scruby installed), use reflection instead of a compile-time dependency:</p>
-      <pre class="codeblock"><code>try {
-    Class&lt;?&gt; api = Class.forName("org.example.plugin.ScrubyCompanionAPI");
-    boolean isScruby = (boolean) api
-        .getMethod("isScrubyCompanion", Store.class, Ref.class)
-        .invoke(null, store, ref);
-    if (isScruby) continue;
-} catch (ClassNotFoundException scrubyNotInstalled) {
-    // Scruby is not on this server - nothing to skip.
-} catch (Exception ignored) { }</code></pre>
-      <p class="closing-note">If you build something that integrates with Scruby, get in touch via the CurseForge page above.</p>
+      <h2>For Mod Developers</h2>
+      <p>Other Hytale companion mods can coexist peacefully with Scruby via the <strong>CompanionConnect</strong> protocol.</p>
+      <p>See the dedicated page: <a href="api.html">CompanionConnect API documentation</a>.</p>
     </main>
 
     <footer class="page-footer">
