@@ -35,10 +35,72 @@
     }
 
     .wrap {
-      max-width: var(--max-width);
+      display: flex;
+      gap: 40px;
+      max-width: 1040px;
       margin: 0 auto;
       padding: 48px 24px 80px;
     }
+
+    aside.sidebar {
+      flex: 0 0 200px;
+      position: sticky;
+      top: 24px;
+      align-self: flex-start;
+      font-size: 0.9rem;
+      max-height: calc(100vh - 48px);
+      overflow-y: auto;
+    }
+
+    aside.sidebar nav h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-dim);
+      margin: 0 0 6px;
+      padding: 0;
+      font-weight: 600;
+    }
+
+    aside.sidebar nav h4:not(:first-child) {
+      margin-top: 22px;
+    }
+
+    aside.sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    aside.sidebar li { margin: 0; }
+
+    aside.sidebar a {
+      display: block;
+      color: var(--text-dim);
+      text-decoration: none;
+      padding: 4px 10px;
+      border-left: 2px solid transparent;
+      line-height: 1.4;
+    }
+
+    aside.sidebar a:hover {
+      color: var(--accent-soft);
+      background: var(--bg-elev);
+    }
+
+    aside.sidebar a.active {
+      color: var(--accent-soft);
+      border-left-color: var(--accent);
+      font-weight: 500;
+    }
+
+    .content {
+      flex: 1;
+      min-width: 0;
+      max-width: var(--max-width);
+    }
+
+    h2 { scroll-margin-top: 24px; }
 
     header.page-header {
       padding-bottom: 8px;
@@ -158,6 +220,21 @@
       color: var(--text-dim);
     }
 
+    @media (max-width: 800px) {
+      .wrap { flex-direction: column; gap: 0; }
+      aside.sidebar {
+        position: static;
+        flex: none;
+        width: 100%;
+        max-height: none;
+        overflow-y: visible;
+        margin-bottom: 24px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--rule);
+      }
+      .content { max-width: none; }
+    }
+
     @media (max-width: 600px) {
       html, body { font-size: 16px; }
       .wrap { padding: 32px 18px 56px; }
@@ -168,6 +245,34 @@
 </head>
 <body>
   <div class="wrap">
+    <aside class="sidebar">
+      <nav>
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="index.html" class="active">Gameplay Instructions</a></li>
+          <li><a href="api.html">API Documentation</a></li>
+        </ul>
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#quick-start">Quick Start</a></li>
+          <li><a href="#useful-commands">Useful Commands</a></li>
+          <li><a href="#first-steps">First Steps</a></li>
+          <li><a href="#choosing-a-path">Choosing a Path</a></li>
+          <li><a href="#combat-modes">Combat Modes</a></li>
+          <li><a href="#skilling">Skilling Your Scruby</a></li>
+          <li><a href="#skills-overview">Skills Overview</a></li>
+          <li><a href="#equipping-armor">Equipping Armor</a></li>
+          <li><a href="#inventory">Inventory and Auto-Loot</a></li>
+          <li><a href="#base-guarding">Base Guarding</a></li>
+          <li><a href="#evolution">Evolution Stages</a></li>
+          <li><a href="#prestige">The Prestige Fight</a></li>
+          <li><a href="#server-admins">Server Admins</a></li>
+          <li><a href="#mod-developers">For Mod Developers</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <div class="content">
     <header class="page-header">
       <h1>Scruby Companion - Gameplay Instructions</h1>
       <p class="subtitle">Advanced MMORPG Companion Mod for Hytale</p>
@@ -180,7 +285,7 @@
     <hr class="divider" />
 
     <main>
-      <h2>Quick Start</h2>
+      <h2 id="quick-start">Quick Start</h2>
       <ol>
         <li>Install the Scruby Companion mod and the HyUI dependency mod.</li>
         <li>Enable both in your game settings under Mods.</li>
@@ -189,14 +294,14 @@
       </ol>
       <p class="closing-note">That's it - you're ready to play.</p>
 
-      <h2>Useful Commands</h2>
+      <h2 id="useful-commands">Useful Commands</h2>
       <ul>
         <li><code>/scruby-menu</code> - open the main Scruby UI</li>
         <li><code>/scruby</code> - list all player commands and settings</li>
         <li><code>/scruby-admin</code> - server admin commands (op-mode required); use it to instantly level up and more</li>
       </ul>
 
-      <h2>First Steps (Level 1–5)</h2>
+      <h2 id="first-steps">First Steps (Level 1–5)</h2>
       <p>Your Scruby starts at level 1 with no class.</p>
       <ul>
         <li>Kill mobs together. Scruby earns XP from your kills and his own.</li>
@@ -204,7 +309,7 @@
         <li>At level 5, the path selection unlocks. Choose between DPS, Healer, or Tank.</li>
       </ul>
 
-      <h2>Choosing a Path (Level 5)</h2>
+      <h2 id="choosing-a-path">Choosing a Path (Level 5)</h2>
       <p>Open the Scruby menu and select your path:</p>
       <ul>
         <li><strong>DPS</strong> - high damage output, ranged abilities</li>
@@ -213,21 +318,21 @@
       </ul>
       <p>Each path has its own skill set and visual evolution.</p>
 
-      <h2>Combat Modes</h2>
+      <h2 id="combat-modes">Combat Modes</h2>
       <p>Scruby has two combat modes you can switch anytime from the character tab:</p>
       <ul>
         <li><strong>Attack Mode</strong> - Scruby attacks every hostile NPC within 20 blocks</li>
         <li><strong>Guard Mode</strong> - Scruby only attacks the enemies you target</li>
       </ul>
 
-      <h2>Skilling Your Scruby</h2>
+      <h2 id="skilling">Skilling Your Scruby</h2>
       <ul>
         <li>You earn 2 attribute points per level (Vitality, Strength, Zeal)</li>
         <li>At level 12 and level 18, you choose 1 skill each time</li>
         <li>Total of 22 skills available across all paths</li>
       </ul>
 
-      <h2>Skills Overview</h2>
+      <h2 id="skills-overview">Skills Overview</h2>
       <p>All 22 skills across the three paths. <strong>Combat Instinct</strong> is the shared starter passive.</p>
 
       <h3>DPS</h3>
@@ -266,21 +371,21 @@
         <li><strong>Loyal Protector</strong> - 30% of your damage goes to Scruby</li>
       </ul>
 
-      <h2>Equipping Armor</h2>
+      <h2 id="equipping-armor">Equipping Armor</h2>
       <ul>
         <li>Open the Scruby menu and go to the Item Transfer tab</li>
         <li>Drag any native Hytale armor onto Scruby</li>
         <li>Each piece adds HP and renders visually on Scruby's model</li>
       </ul>
 
-      <h2>Scruby Inventory and Auto-Loot</h2>
+      <h2 id="inventory">Scruby Inventory and Auto-Loot</h2>
       <ul>
         <li>Scruby has a built-in 20-slot inventory</li>
         <li>He automatically picks up items dropped by NPCs he helped kill</li>
         <li>Transfer items to and from Scruby via the Item Transfer tab</li>
       </ul>
 
-      <h2>Base Guarding</h2>
+      <h2 id="base-guarding">Base Guarding</h2>
       <ul>
         <li>Open the Scruby menu and set Scruby to "stationed" mode at your base location</li>
         <li>While stationed, you can switch between two behaviors anytime:
@@ -292,7 +397,7 @@
         <li>Return any time to collect what he gathered</li>
       </ul>
 
-      <h2>Evolution Stages</h2>
+      <h2 id="evolution">Evolution Stages</h2>
       <p>Scruby visually evolves at:</p>
       <ul>
         <li>Level 5 (after path selection)</li>
@@ -300,7 +405,7 @@
         <li>Level 20 (Prestige evolution)</li>
       </ul>
 
-      <h2>Endgame: The Prestige Fight</h2>
+      <h2 id="prestige">Endgame: The Prestige Fight</h2>
       <p>At max level (20), the Prestige Fight unlocks:</p>
       <ul>
         <li>Open the Scruby menu and challenge the Prestige boss</li>
@@ -309,11 +414,11 @@
         <li><strong>Lose:</strong> no second chance (server admins can grant a retry via <code>/scruby-admin</code>)</li>
       </ul>
 
-      <h2>Server Admins</h2>
+      <h2 id="server-admins">Server Admins</h2>
       <p>Configure XP rates, respawn delays, prestige toggles, and more in:</p>
       <p><code>Hytale-Dedicated-Server/mods/CompanionMod_ScrubyCompanion/scruby-config.json</code></p>
 
-      <h2>For Mod Developers</h2>
+      <h2 id="mod-developers">For Mod Developers</h2>
       <p>Other Hytale companion mods can coexist peacefully with Scruby via the <strong>CompanionConnect</strong> protocol.</p>
       <p>See the dedicated page: <a href="api.html">CompanionConnect API documentation</a>.</p>
     </main>
@@ -326,6 +431,7 @@
       </ul>
       <p class="credit">Built solo by Superdynamix.</p>
     </footer>
+    </div>
   </div>
 </body>
 </html>

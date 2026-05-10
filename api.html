@@ -35,10 +35,72 @@
     }
 
     .wrap {
-      max-width: var(--max-width);
+      display: flex;
+      gap: 40px;
+      max-width: 1040px;
       margin: 0 auto;
       padding: 48px 24px 80px;
     }
+
+    aside.sidebar {
+      flex: 0 0 200px;
+      position: sticky;
+      top: 24px;
+      align-self: flex-start;
+      font-size: 0.9rem;
+      max-height: calc(100vh - 48px);
+      overflow-y: auto;
+    }
+
+    aside.sidebar nav h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-dim);
+      margin: 0 0 6px;
+      padding: 0;
+      font-weight: 600;
+    }
+
+    aside.sidebar nav h4:not(:first-child) {
+      margin-top: 22px;
+    }
+
+    aside.sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    aside.sidebar li { margin: 0; }
+
+    aside.sidebar a {
+      display: block;
+      color: var(--text-dim);
+      text-decoration: none;
+      padding: 4px 10px;
+      border-left: 2px solid transparent;
+      line-height: 1.4;
+    }
+
+    aside.sidebar a:hover {
+      color: var(--accent-soft);
+      background: var(--bg-elev);
+    }
+
+    aside.sidebar a.active {
+      color: var(--accent-soft);
+      border-left-color: var(--accent);
+      font-weight: 500;
+    }
+
+    .content {
+      flex: 1;
+      min-width: 0;
+      max-width: var(--max-width);
+    }
+
+    h2 { scroll-margin-top: 24px; }
 
     header.page-header {
       padding-bottom: 8px;
@@ -58,16 +120,6 @@
       font-size: 1.05rem;
       margin: 0 0 20px;
     }
-
-    .back-link {
-      display: inline-block;
-      margin: 0 0 18px;
-      color: var(--accent-soft);
-      text-decoration: none;
-      font-size: 0.95rem;
-    }
-
-    .back-link:hover { text-decoration: underline; }
 
     .callout {
       background: var(--bg-callout);
@@ -196,6 +248,21 @@
       color: var(--text-dim);
     }
 
+    @media (max-width: 800px) {
+      .wrap { flex-direction: column; gap: 0; }
+      aside.sidebar {
+        position: static;
+        flex: none;
+        width: 100%;
+        max-height: none;
+        overflow-y: visible;
+        margin-bottom: 24px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--rule);
+      }
+      .content { max-width: none; }
+    }
+
     @media (max-width: 600px) {
       html, body { font-size: 16px; }
       .wrap { padding: 32px 18px 56px; }
@@ -206,8 +273,27 @@
 </head>
 <body>
   <div class="wrap">
-    <a href="index.html" class="back-link">&larr; Back to gameplay instructions</a>
+    <aside class="sidebar">
+      <nav>
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="index.html">Gameplay Instructions</a></li>
+          <li><a href="api.html" class="active">API Documentation</a></li>
+        </ul>
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#what">What this is</a></li>
+          <li><a href="#naming">Role naming convention</a></li>
+          <li><a href="#query">Query Scruby from your code</a></li>
+          <li><a href="#methods">Available methods</a></li>
+          <li><a href="#scope">Out of scope</a></li>
+          <li><a href="#reflection">Reflection alternative</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </nav>
+    </aside>
 
+    <div class="content">
     <header class="page-header">
       <h1>CompanionConnect API</h1>
       <p class="subtitle">For Hytale mod developers who want their companion plugin to coexist with Scruby</p>
@@ -219,11 +305,11 @@
     <hr class="divider" />
 
     <main>
-      <h2>What this is</h2>
+      <h2 id="what">What this is</h2>
       <p>Other Hytale companion mods can coexist peacefully with Scruby. Scruby's AoE skill targeting (Healer-AoE, DPS-Burst, Tank-Taunt, etc.) automatically skips entities from any plugin that follows the convention below. No registration, no runtime handshake, no plugin dependency is required for the basic case.</p>
       <p>If you want the inverse - your own targeting should skip Scrubys - Scruby ships a small read-only Java facade you can call.</p>
 
-      <h2>Easiest path - role naming only</h2>
+      <h2 id="naming">Easiest path - role naming only</h2>
       <p>Pick any name for your companion's NPC role and include the substring <code>_CompanionConnect</code> somewhere in it. That is the entire requirement.</p>
       <p>Examples that match:</p>
       <pre class="codeblock"><code>MyMod_Wolf_CompanionConnect
@@ -231,7 +317,7 @@ Awesome_Pet_CompanionConnect_Aggressive
 SomeMod_Companion_CompanionConnect_Stationed</code></pre>
       <p>As soon as your plugin is loaded alongside Scruby, Scruby's AoE skills will leave your entities alone. Vanilla Hytale roles do not contain this substring, so there is no risk of false positives on regular mobs.</p>
 
-      <h2>Optional - query Scruby from your code</h2>
+      <h2 id="query">Optional - query Scruby from your code</h2>
       <p>To make your own skills skip Scrubys, add Scruby's JAR as a compile-only Gradle dependency. Use the latest release from CurseForge.</p>
       <pre class="codeblock"><code>// build.gradle
 dependencies {
@@ -245,7 +331,7 @@ if (ScrubyCompanionAPI.isScrubyCompanion(store, ref)) {
 }</code></pre>
       <p><code>compileOnly</code> means the JAR is only used for compilation - it is not bundled into your final mod artifact. At runtime, the actual Scruby JAR is loaded from the server's <code>mods</code> folder.</p>
 
-      <h2>Available methods</h2>
+      <h2 id="methods">Available methods</h2>
       <ul>
         <li><code>isScrubyCompanion(store, ref)</code> - returns <code>true</code> if the entity's NPC role name contains <code>Scruby_</code>.</li>
         <li><code>isCompanionConnectNpc(store, ref)</code> - returns <code>true</code> if the role name contains <code>_CompanionConnect</code>.</li>
@@ -254,7 +340,7 @@ if (ScrubyCompanionAPI.isScrubyCompanion(store, ref)) {
       </ul>
       <p>The facade is read-only and side-effect-free. If Scruby is not on the server, the owner-lookup returns <code>Optional.empty()</code> rather than throwing.</p>
 
-      <h2>What the protocol does NOT do</h2>
+      <h2 id="scope">What the protocol does NOT do</h2>
       <ul>
         <li>It does not modify direct auto-attack damage. That is governed by Hytale's NPC-Role attitude system, which is configured in the role definitions themselves.</li>
         <li>It does not differentiate between same-owner and different-owner companions in PvP scenarios.</li>
@@ -262,7 +348,7 @@ if (ScrubyCompanionAPI.isScrubyCompanion(store, ref)) {
       </ul>
       <p>These are deliberate omissions. Extensions are possible if there is real cross-mod demand.</p>
 
-      <h2>Reflection alternative (no JAR dependency)</h2>
+      <h2 id="reflection">Reflection alternative (no JAR dependency)</h2>
       <p>If your mod must work standalone (without Scruby installed), use reflection instead of a compile-time dependency:</p>
       <pre class="codeblock"><code>try {
     Class&lt;?&gt; api = Class.forName("org.example.plugin.ScrubyCompanionAPI");
@@ -275,7 +361,7 @@ if (ScrubyCompanionAPI.isScrubyCompanion(store, ref)) {
 } catch (Exception ignored) { }</code></pre>
       <p>This way your plugin compiles and runs without Scruby, and only activates the integration when Scruby is present.</p>
 
-      <h2>FAQ</h2>
+      <h2 id="faq">FAQ</h2>
       <h3>Do I have to coordinate with the Scruby developer?</h3>
       <p>No. Just pick a role name with the convention substring and you are done. There is nothing to register and no API key to obtain.</p>
 
@@ -299,6 +385,7 @@ if (ScrubyCompanionAPI.isScrubyCompanion(store, ref)) {
       </ul>
       <p class="credit">Built solo by Superdynamix.</p>
     </footer>
+    </div>
   </div>
 </body>
 </html>
